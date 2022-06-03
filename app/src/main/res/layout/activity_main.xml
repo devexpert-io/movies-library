@@ -6,7 +6,6 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="64dp"
-    android:theme="@style/Theme.MovieLibrary.LinearLayout"
     tools:context=".MainActivity">
 
     <EditText
@@ -16,9 +15,7 @@
         android:autofillHints="emailAddress"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        style="@style/LocalEditTextStyle"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/password"
