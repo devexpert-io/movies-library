@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.devexperto.damproject.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -25,12 +26,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val fragment = DetailFragment()
         fragment.arguments = bundleOf(DetailFragment.EXTRA_MOVIE to movie)
 
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container_view, fragment)
-            .setReorderingAllowed(true)
-            .addToBackStack(null)
-            .commit()
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.fragment_container_view, fragment)
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
     }
 }
 
