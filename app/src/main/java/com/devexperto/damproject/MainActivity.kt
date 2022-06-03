@@ -11,15 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)
-
-            login.setOnClickListener {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Email: ${email.text}, Password: ${password.text}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            recycler.adapter = MoviesAdapter(movies)
         }
     }
 
 }
+
+private val movies =
+    (1..100).map { Movie("Title $it", "https://loremflickr.com/240/320/dog?lock=$it") }
