@@ -1,4 +1,4 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.ui
 
 import android.view.LayoutInflater
 import android.view.View

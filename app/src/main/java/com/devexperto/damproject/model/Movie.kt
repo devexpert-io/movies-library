@@ -1,4 +1,4 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

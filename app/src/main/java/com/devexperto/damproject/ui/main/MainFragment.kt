@@ -1,10 +1,13 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.ui.main
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.devexperto.damproject.model.Movie
+import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentMainBinding
+import com.devexperto.damproject.ui.supportActionBar
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 

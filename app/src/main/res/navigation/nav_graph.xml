@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.devexperto.damproject.MainFragment"
+        android:name="com.devexperto.damproject.ui.main.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_main_to_detail"
@@ -19,11 +19,11 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.devexperto.damproject.DetailFragment"
+        android:name="com.devexperto.damproject.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="movie"
-            app:argType="com.devexperto.damproject.Movie" />
+            app:argType="com.devexperto.damproject.model.Movie" />
     </fragment>
 </navigation>

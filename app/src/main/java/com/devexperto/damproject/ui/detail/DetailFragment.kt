@@ -1,10 +1,13 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.ui.detail
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentDetailBinding
+import com.devexperto.damproject.ui.loadUrl
+import com.devexperto.damproject.ui.supportActionBar
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 

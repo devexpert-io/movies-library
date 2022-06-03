@@ -1,8 +1,8 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
+import com.devexperto.damproject.R
 
 class HostActivity : AppCompatActivity() {
 
