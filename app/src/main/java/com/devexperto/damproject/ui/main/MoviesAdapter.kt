@@ -9,7 +9,7 @@ import com.devexperto.damproject.databinding.ViewMovieBinding
 import com.devexperto.damproject.ui.inflate
 import com.devexperto.damproject.ui.loadUrl
 
-class MoviesAdapter(private val movies: List<Movie>, private val listener: (Movie) -> Unit) :
+class MoviesAdapter(var movies: List<Movie> = emptyList(), private val listener: (Movie) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
