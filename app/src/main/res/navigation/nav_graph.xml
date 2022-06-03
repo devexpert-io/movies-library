@@ -21,5 +21,9 @@
         android:id="@+id/detailFragment"
         android:name="com.devexperto.damproject.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="movie"
+            app:argType="com.devexperto.damproject.Movie" />
+    </fragment>
 </navigation>
