@@ -11,8 +11,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)
-            recycler.adapter = MoviesAdapter(movies) {
-                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
+            recycler.adapter = MoviesAdapter(movies) { movie ->
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_MOVIE, movie)
+                startActivity(intent)
             }
         }
     }

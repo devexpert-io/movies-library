@@ -1,3 +1,10 @@
 package com.devexperto.damproject
 
-data class Movie(val title: String, val url: String)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+    @Parcelize
+    data class Movie(
+        val title: String,
+        val url: String
+    ): Parcelable
