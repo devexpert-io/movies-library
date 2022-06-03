@@ -2,6 +2,7 @@ package com.devexperto.damproject
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -14,8 +15,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
         with(FragmentMainBinding.bind(view)) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title =
-                getString(R.string.app_name)
+            supportActionBar?.title = getString(R.string.app_name)
             recycler.adapter = MoviesAdapter(movies) { movie ->
                 navigateTo(movie)
             }
