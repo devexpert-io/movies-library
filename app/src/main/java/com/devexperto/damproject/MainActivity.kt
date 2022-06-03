@@ -1,7 +1,7 @@
 package com.devexperto.damproject
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.damproject.databinding.ActivityMainBinding
 
@@ -11,7 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)
-            recycler.adapter = MoviesAdapter(movies)
+            recycler.adapter = MoviesAdapter(movies) {
+                startActivity(Intent(this@MainActivity, DetailActivity::class.java))
+            }
         }
     }
 
