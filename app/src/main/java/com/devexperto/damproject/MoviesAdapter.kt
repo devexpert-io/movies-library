@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.devexperto.damproject.databinding.ViewMovieBinding
 
 class MoviesAdapter(private val movies: List<Movie>) :
@@ -24,6 +25,13 @@ class MoviesAdapter(private val movies: List<Movie>) :
         private val binding = ViewMovieBinding.bind(view)
         fun bind(movie: Movie) {
             binding.title.text = movie.title
+
+            Glide
+                .with(binding.thumb)
+                .load(movie.url)
+                .into(binding.thumb)
+
+
         }
     }
 }
