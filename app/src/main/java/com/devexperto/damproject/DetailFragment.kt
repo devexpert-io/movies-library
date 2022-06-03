@@ -2,6 +2,7 @@ package com.devexperto.damproject
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.devexperto.damproject.databinding.FragmentDetailBinding
@@ -20,7 +21,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             val movie = arguments?.getParcelable<Movie>(EXTRA_MOVIE)
 
             if (movie != null) {
-                requireActivity().actionBar?.title = movie.title
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = movie.title
                 Glide.with(thumb).load(movie.url).into(thumb)
             }
         }
