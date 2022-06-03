@@ -11,6 +11,7 @@ import com.devexperto.damproject.databinding.FragmentMainBinding
 import com.devexperto.damproject.model.MoviesProvider
 import com.devexperto.damproject.ui.supportActionBar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -40,8 +41,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun loadItems() {
         viewLifecycleOwner.lifecycleScope.launch {
             binding.progress.visibility = View.VISIBLE
-            val movies = withContext(Dispatchers.IO) { MoviesProvider.getMovies() }
-            adapter.movies = movies
+            val dogs = async(Dispatchers.IO) { MoviesProvider.getMovies("dogs") }
+            val cats = async(Dispatchers.IO) { MoviesProvider.getMovies("cats") }
+            adapter.movies = dogs.await() + cats.await()
             adapter.notifyDataSetChanged()
             binding.progress.visibility = View.GONE
         }
