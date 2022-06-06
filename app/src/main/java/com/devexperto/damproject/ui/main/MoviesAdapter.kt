@@ -3,9 +3,9 @@ package com.devexperto.damproject.ui.main
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.devexperto.damproject.model.Movie
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.ViewMovieBinding
+import com.devexperto.damproject.model.Movie
 import com.devexperto.damproject.ui.inflate
 import com.devexperto.damproject.ui.loadUrl
 
