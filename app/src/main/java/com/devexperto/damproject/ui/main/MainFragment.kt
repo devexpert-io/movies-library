@@ -9,6 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.devexperto.damproject.App
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentMainBinding
+import com.devexperto.damproject.model.repository.MoviesLocalDataSource
+import com.devexperto.damproject.model.repository.MoviesRemoteDataSource
+import com.devexperto.damproject.model.repository.MoviesRepository
 import com.devexperto.damproject.ui.supportActionBar
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -16,10 +19,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(
-            getString(R.string.api_key),
-            (requireActivity().applicationContext as App).db.movieDao()
+        val moviesRepository = MoviesRepository(
+            MoviesLocalDataSource((requireActivity().applicationContext as App).db.movieDao()),
+            MoviesRemoteDataSource(getString(R.string.api_key))
         )
+        MainViewModelFactory(moviesRepository)
     }
 
     private val adapter = MoviesAdapter { viewModel.onMovieClicked(it) }

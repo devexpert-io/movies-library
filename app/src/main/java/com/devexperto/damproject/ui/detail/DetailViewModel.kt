@@ -2,26 +2,28 @@ package com.devexperto.damproject.ui.detail
 
 import androidx.lifecycle.*
 import com.devexperto.damproject.model.Movie
-import com.devexperto.damproject.model.db.MovieDao
-import com.devexperto.damproject.model.toDomainMovie
+import com.devexperto.damproject.model.repository.MoviesRepository
 import kotlinx.coroutines.launch
 
-class DetailViewModel(movieId: Int, movieDao: MovieDao) : ViewModel() {
+class DetailViewModel(movieId: Int, moviesRepository: MoviesRepository) : ViewModel() {
 
     private val _state = MutableLiveData<Movie>()
     val state: LiveData<Movie> get() = _state
 
     init {
         viewModelScope.launch {
-            _state.value = movieDao.findById(movieId).toDomainMovie()
+            _state.value = moviesRepository.findById(movieId)
         }
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class DetailViewModelFactory(private val movieId: Int, private val movieDao: MovieDao) :
+class DetailViewModelFactory(
+    private val movieId: Int,
+    private val moviesRepository: MoviesRepository
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DetailViewModel(movieId, movieDao) as T
+        return DetailViewModel(movieId, moviesRepository) as T
     }
 }
