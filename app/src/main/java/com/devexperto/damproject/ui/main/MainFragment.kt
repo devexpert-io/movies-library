@@ -39,7 +39,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     adapter.notifyDataSetChanged()
                 }
                 state.navigateTo?.let {
-                    val action = MainFragmentDirections.actionMainToDetail(it)
+                    val action = MainFragmentDirections.actionMainToDetail(it.id)
                     findNavController().navigate(action)
                     viewModel.onNavigationDone()
                 }
