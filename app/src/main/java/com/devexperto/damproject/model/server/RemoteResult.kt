@@ -26,8 +26,3 @@ data class Movie(
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
 )
-
-fun Movie.toDomainMovie(): DomainMovie = DomainMovie(
-    title,
-    "https://image.tmdb.org/t/p/w185/$posterPath"
-)

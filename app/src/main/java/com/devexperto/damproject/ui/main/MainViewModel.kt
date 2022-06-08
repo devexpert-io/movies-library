@@ -2,11 +2,13 @@ package com.devexperto.damproject.ui.main
 
 import androidx.lifecycle.*
 import com.devexperto.damproject.model.Movie
+import com.devexperto.damproject.model.db.MovieDao
 import com.devexperto.damproject.model.server.RemoteConnection
-import com.devexperto.damproject.model.server.toDomainMovie
+import com.devexperto.damproject.model.toDbMovie
+import com.devexperto.damproject.model.toDomainMovie
 import kotlinx.coroutines.launch
 
-class MainViewModel(apiKey: String) : ViewModel() {
+class MainViewModel(private val apiKey: String, private val movieDao: MovieDao) : ViewModel() {
 
     private val _state = MutableLiveData(UIState())
     val state: LiveData<UIState> get() = _state
@@ -14,11 +16,17 @@ class MainViewModel(apiKey: String) : ViewModel() {
     init {
         viewModelScope.launch {
             _state.value = _state.value?.copy(loading = true)
-            val movies = RemoteConnection.service.listPopularMovies(apiKey).results
-            _state.value = _state.value?.copy(
-                loading = false,
-                movies = movies.map { it.toDomainMovie() })
+            _state.value = _state.value?.copy(loading = false, movies = requestMovies())
         }
+    }
+
+    private suspend fun requestMovies(): List<Movie> {
+        if (movieDao.movieCount() == 0) {
+            val serverResult = RemoteConnection.service.listPopularMovies(apiKey).results
+            movieDao.insertMovies(serverResult.map { it.toDbMovie() })
+        }
+
+        return movieDao.getAll().map { it.toDomainMovie() }
     }
 
     fun onMovieClicked(movie: Movie) {
@@ -37,9 +45,10 @@ class MainViewModel(apiKey: String) : ViewModel() {
 }
 
 @Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(private val apiKey: String) : ViewModelProvider.Factory {
+class MainViewModelFactory(private val apiKey: String, private val movieDao: MovieDao) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(apiKey) as T
+        return MainViewModel(apiKey, movieDao) as T
     }
 
 }

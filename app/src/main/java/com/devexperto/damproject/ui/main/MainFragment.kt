@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.devexperto.damproject.App
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentMainBinding
 import com.devexperto.damproject.ui.supportActionBar
@@ -14,7 +15,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
 
-    private val viewModel: MainViewModel by viewModels { MainViewModelFactory(getString(R.string.api_key)) }
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(
+            getString(R.string.api_key),
+            (requireActivity().applicationContext as App).db.movieDao()
+        )
+    }
 
     private val adapter = MoviesAdapter { viewModel.onMovieClicked(it) }
 
