@@ -3,22 +3,18 @@ package com.devexperto.damproject.ui.main
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentMainBinding
-import com.devexperto.damproject.model.server.RemoteConnection
 import com.devexperto.damproject.ui.supportActionBar
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels { MainViewModelFactory(getString(R.string.api_key)) }
 
     private val adapter = MoviesAdapter { viewModel.onMovieClicked(it) }
 
@@ -42,12 +38,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     viewModel.onNavigationDone()
                 }
             }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            val movies = RemoteConnection.service.listPopularMovies(getString(R.string.api_key))
-            Toast.makeText(requireContext(), movies.results.size.toString(), Toast.LENGTH_LONG)
-                .show()
         }
     }
 }

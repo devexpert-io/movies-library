@@ -1,6 +1,7 @@
 package com.devexperto.damproject.model.server
 
 import com.google.gson.annotations.SerializedName
+import com.devexperto.damproject.model.Movie as DomainMovie
 
 data class RemoteResult(
     val page: Int,
@@ -24,4 +25,9 @@ data class Movie(
     val video: Boolean,
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
+)
+
+fun Movie.toDomainMovie(): DomainMovie = DomainMovie(
+    title,
+    "https://image.tmdb.org/t/p/w185/$posterPath"
 )

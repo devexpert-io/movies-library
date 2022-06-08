@@ -17,8 +17,10 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:background="?attr/colorSecondary"
-        android:padding="16dp"
+        android:padding="8dp"
+        android:lines="2"
         android:textColor="?attr/colorOnSecondary"
         android:textAlignment="center"
         tools:text = "Title 1"/>
