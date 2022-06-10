@@ -2,19 +2,24 @@ package com.devexperto.damproject.ui.main
 
 import androidx.lifecycle.*
 import com.devexperto.damproject.model.Movie
-import com.devexperto.damproject.model.db.MovieDao
 import com.devexperto.damproject.model.repository.MoviesRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel(moviesRepository: MoviesRepository) : ViewModel() {
 
-    private val _state = MutableLiveData(UIState())
+    private val _state = MediatorLiveData<UIState>()
     val state: LiveData<UIState> get() = _state
 
+    private val _localState = MutableLiveData(UIState())
+
     init {
+        _state.addSource(_localState) { _state.value = it }
+        _state.addSource(moviesRepository.movies) { _state.value = _state.value?.copy(movies = it) }
+
         viewModelScope.launch {
-            _state.value = _state.value?.copy(loading = true)
-            _state.value = _state.value?.copy(loading = false, movies = moviesRepository.getAll())
+            _localState.value = _localState.value?.copy(loading = true)
+            moviesRepository.requestMovies()
+            _localState.value = _localState.value?.copy(loading = false)
         }
     }
 

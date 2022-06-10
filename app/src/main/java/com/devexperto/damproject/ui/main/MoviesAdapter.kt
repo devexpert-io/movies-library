@@ -29,6 +29,7 @@ class MoviesAdapter(var movies: List<Movie> = emptyList(), private val listener:
         fun bind(movie: Movie) {
             binding.title.text = movie.title
             binding.thumb.loadUrl(movie.url)
+            binding.favorite.setImageResource(if (movie.favorite) R.drawable.ic_favorite else 0)
         }
     }
 }

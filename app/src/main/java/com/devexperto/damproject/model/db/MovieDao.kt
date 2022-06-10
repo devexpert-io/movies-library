@@ -1,5 +1,6 @@
 package com.devexperto.damproject.model.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,10 +10,10 @@ import androidx.room.Query
 interface MovieDao {
 
     @Query("SELECT * FROM Movie")
-    suspend fun getAll(): List<Movie>
+    fun getAll(): LiveData<List<Movie>>
 
     @Query("SELECT * FROM Movie WHERE id = :id")
-    suspend fun findById(id: Int): Movie
+    fun findById(id: Int): LiveData<Movie>
 
     @Query("SELECT COUNT(id) FROM Movie")
     suspend fun movieCount(): Int

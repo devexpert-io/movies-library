@@ -1,21 +1,22 @@
 package com.devexperto.damproject.model.repository
 
+import androidx.lifecycle.LiveData
 import com.devexperto.damproject.model.Movie
 
 class MoviesRepository(
     private val moviesLocalDataSource: MoviesLocalDataSource,
     private val moviesRemoteDataSource: MoviesRemoteDataSource
 ) {
+    val movies: LiveData<List<Movie>> = moviesLocalDataSource.getAll()
 
-    suspend fun getAll(): List<Movie> {
+    suspend fun requestMovies() {
         if (moviesLocalDataSource.isEmpty()) {
             val movies = moviesRemoteDataSource.getPopularMovies()
             moviesLocalDataSource.save(movies)
         }
-        return moviesLocalDataSource.getAll()
     }
 
-    suspend fun findById(movieId: Int): Movie = moviesLocalDataSource.findById(movieId)
+    fun findById(movieId: Int): LiveData<Movie> = moviesLocalDataSource.findById(movieId)
 
     suspend fun switchFavorite(movie: Movie) {
         val updated = movie.copy(favorite = !movie.favorite)
