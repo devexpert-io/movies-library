@@ -33,6 +33,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             with(FragmentDetailBinding.bind(view)) {
                 supportActionBar?.title = movie.title
                 thumb.loadUrl(movie.url)
+                fab.setOnClickListener { viewModel.onSwitchFavoriteClick() }
+                fab.setImageResource(if (movie.favorite) R.drawable.ic_favorite else R.drawable.ic_favorite_off)
             }
         }
     }

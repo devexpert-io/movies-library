@@ -16,4 +16,9 @@ class MoviesRepository(
     }
 
     suspend fun findById(movieId: Int): Movie = moviesLocalDataSource.findById(movieId)
+
+    suspend fun switchFavorite(movie: Movie) {
+        val updated = movie.copy(favorite = !movie.favorite)
+        moviesLocalDataSource.save(listOf(updated))
+    }
 }
