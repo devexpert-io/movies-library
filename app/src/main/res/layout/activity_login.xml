@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="64dp"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <EditText
         android:id="@+id/email"
@@ -31,4 +31,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorError"
+        android:gravity="center"
+        android:maxLines="3"
+        android:padding="8dp"
+        android:text="There's an error in email or password"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="?attr/colorOnError"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 </LinearLayout>
