@@ -12,13 +12,13 @@ class MainViewModel(apiKey: String) : ViewModel() {
     val state: LiveData<UIState> get() = _state
 
     init {
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             _state.value = _state.value?.copy(loading = true)
             val movies = RemoteConnection.service.listPopularMovies(apiKey).results
             _state.value = _state.value?.copy(
                 loading = false,
                 movies = movies.map { it.toDomainMovie() })
-        }
+        }*/
     }
 
     fun onMovieClicked(movie: Movie) {
