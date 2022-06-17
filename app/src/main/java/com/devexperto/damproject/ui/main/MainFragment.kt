@@ -11,6 +11,7 @@ import com.devexperto.damproject.model.server.RemoteConnection
 import com.devexperto.damproject.model.server.toDomainMovie
 import com.devexperto.damproject.ui.supportActionBar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -28,11 +29,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             recycler.adapter = adapter
 
             lifecycleScope.launch(Dispatchers.Main) {
-                val result1 =
+                val result1 = async {
                     RemoteConnection.service.listPopularMovies(getString(R.string.api_key)).results
-                val result2 =
+                }
+                val result2 = async {
                     RemoteConnection.service.listMostVotedMovies(getString(R.string.api_key)).results
-                val movies = (result1 + result2).map { it.toDomainMovie() }
+                }
+                val movies = (result1.await() + result2.await()).map { it.toDomainMovie() }
                 adapter.movies = movies
                 adapter.notifyDataSetChanged()
             }
