@@ -1,4 +1,4 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.screens.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,16 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.devexperto.damproject.App
+import com.devexperto.damproject.screens.home.HomeActivity
+import com.devexperto.damproject.R
 
 class LoginActivity : AppCompatActivity() {
 
-    private val vm: LoginViewModel by viewModels()
+    private val vm: LoginViewModel by viewModels {
+        val app = applicationContext as App
+        LoginViewModelFactory(app.db.loginTimeDao())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

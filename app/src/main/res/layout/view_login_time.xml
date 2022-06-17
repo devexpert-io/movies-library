@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/loginTimeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        tools:text="1" />
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/loginTimeEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/first_names" />
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/loginTimeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/date/ddmmyy"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+</LinearLayout>

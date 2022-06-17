@@ -1,10 +1,11 @@
-package com.devexperto.damproject
+package com.devexperto.damproject.screens.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.devexperto.damproject.db.LoginTime
+import com.devexperto.damproject.db.LoginTimeDao
+import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(private val loginTimeDao: LoginTimeDao) : ViewModel() {
 
     private val _state = MutableLiveData(UiState())
     val state: LiveData<UiState>
@@ -13,8 +14,15 @@ class LoginViewModel : ViewModel() {
     fun doLogin(email: String, pass: String) {
         if (isLoginValid(email, pass)) {
             _state.value = _state.value?.copy(showError = false, navigateToHome = true)
+            saveLoginTime(email)
         } else {
             _state.value = _state.value?.copy(showError = true)
+        }
+    }
+
+    private fun saveLoginTime(email: String) {
+        viewModelScope.launch {
+            loginTimeDao.save(LoginTime(0, email, System.currentTimeMillis()))
         }
     }
 
@@ -33,5 +41,13 @@ class LoginViewModel : ViewModel() {
         val showError: Boolean = false,
         val navigateToHome: Boolean = false
     )
+
+}
+
+@Suppress("UNCHECKED_CAST")
+class LoginViewModelFactory(private val loginTimeDao: LoginTimeDao) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return LoginViewModel(loginTimeDao) as T
+    }
 
 }
