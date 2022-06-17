@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentMainBinding
-import com.devexperto.damproject.model.server.*
+import com.devexperto.damproject.model.server.RemoteConnection
+import com.devexperto.damproject.model.server.toDomainMovie
 import com.devexperto.damproject.ui.supportActionBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -29,18 +28,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             recycler.adapter = adapter
 
             lifecycleScope.launch(Dispatchers.Main) {
-                val result1 = doRequest { listPopularMovies(getString(R.string.api_key)) }
-                val result2 = doRequest { listMostVotedMovies(getString(R.string.api_key)) }
+                val result1 =
+                    RemoteConnection.service.listPopularMovies(getString(R.string.api_key)).results
+                val result2 =
+                    RemoteConnection.service.listMostVotedMovies(getString(R.string.api_key)).results
                 val movies = (result1 + result2).map { it.toDomainMovie() }
                 adapter.movies = movies
                 adapter.notifyDataSetChanged()
             }
         }
     }
-
 }
-
-private suspend fun doRequest(request: suspend RemoteService.() -> Call<RemoteResult>): List<Movie> {
-    return RemoteConnection.service.request().execute().body()!!.results
-}
-
