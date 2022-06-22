@@ -3,9 +3,12 @@ package com.devexperto.damproject.ui.main
 import androidx.lifecycle.*
 import com.devexperto.damproject.model.Movie
 import com.devexperto.damproject.model.repository.MoviesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(moviesRepository: MoviesRepository) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(moviesRepository: MoviesRepository) : ViewModel() {
 
     private val _state = MediatorLiveData<UIState>()
     val state: LiveData<UIState> get() = _state
@@ -36,13 +39,4 @@ class MainViewModel(moviesRepository: MoviesRepository) : ViewModel() {
         val movies: List<Movie>? = null,
         val navigateTo: Movie? = null
     )
-}
-
-@Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(private val moviesRepository: MoviesRepository) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(moviesRepository) as T
-    }
-
 }

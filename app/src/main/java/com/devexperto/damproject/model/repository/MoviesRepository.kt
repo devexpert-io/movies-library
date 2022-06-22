@@ -2,8 +2,9 @@ package com.devexperto.damproject.model.repository
 
 import androidx.lifecycle.LiveData
 import com.devexperto.damproject.model.Movie
+import javax.inject.Inject
 
-class MoviesRepository(
+class MoviesRepository @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource,
     private val moviesRemoteDataSource: MoviesRemoteDataSource
 ) {

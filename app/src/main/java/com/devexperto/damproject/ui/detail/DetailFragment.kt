@@ -5,26 +5,18 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.devexperto.damproject.App
 import com.devexperto.damproject.R
 import com.devexperto.damproject.databinding.FragmentDetailBinding
-import com.devexperto.damproject.model.repository.MoviesLocalDataSource
-import com.devexperto.damproject.model.repository.MoviesRemoteDataSource
 import com.devexperto.damproject.model.repository.MoviesRepository
 import com.devexperto.damproject.ui.loadUrl
 import com.devexperto.damproject.ui.supportActionBar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private val args by navArgs<DetailFragmentArgs>()
-
-    private val viewModel: DetailViewModel by viewModels {
-        val moviesRepository = MoviesRepository(
-            MoviesLocalDataSource((requireActivity().applicationContext as App).db.movieDao()),
-            MoviesRemoteDataSource(getString(R.string.api_key))
-        )
-        DetailViewModelFactory(args.movieId, moviesRepository)
-    }
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,5 +30,4 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
     }
-
 }

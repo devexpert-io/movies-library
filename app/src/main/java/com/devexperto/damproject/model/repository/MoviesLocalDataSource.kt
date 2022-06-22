@@ -6,8 +6,9 @@ import com.devexperto.damproject.model.Movie
 import com.devexperto.damproject.model.db.MovieDao
 import com.devexperto.damproject.model.toDbMovie
 import com.devexperto.damproject.model.toDomainMovie
+import javax.inject.Inject
 
-class MoviesLocalDataSource(private val movieDao: MovieDao) {
+class MoviesLocalDataSource @Inject constructor(private val movieDao: MovieDao) {
     suspend fun isEmpty(): Boolean = movieDao.movieCount() == 0
 
     suspend fun save(movies: List<Movie>) {
